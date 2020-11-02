@@ -20,7 +20,7 @@ def scan(IP, interval = (1,65535)):
     try:
         for port in range(*interval):  
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            result = sock.connect_ex((remoteServer, port))
+            result = sock.connect_ex((server, port))
             if result == 0:
                 print(f"Port {port} is open")
             sock.close()
@@ -35,7 +35,7 @@ def scan(IP, interval = (1,65535)):
 
 if __name__ == '__main__':
     subprocess.call('clear', shell=True)
-    remoteServer = resolve(sys.argv[1] if len(sys.argv) > 1 else input("Enter a host to scan: "))
-    print("wait, scanning host ports", remoteServer, end="\n\n")
-    scan(remoteServer)
+    server = resolve(sys.argv[1] if len(sys.argv) > 1 else input("Enter a host to scan: "))
+    print("wait, scanning host ports", server, end="\n\n")
+    scan(server, (int(sys.argv[2]), int(sys.argv[3]))) if len(sys.argv) >= 4 else scan(server)
 
